@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Churches - Faith, Family, Fellowship</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-church"></i>
+                <span>Community Churches</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#bethel-church" class="nav-link">Bethel Bible Church</a>
+                <a href="#berean-church" class="nav-link">Berean Bible Fellowship</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="split-hero">
+            <div class="hero-half grace-half" onclick="window.location.href='#bethel-church'" role="button" tabindex="0" aria-label="Learn more about Bethel Bible Church">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Bethel Bible Church</h1>
+                    <p class="hero-subtitle">"A Place of Worship and Fellowship"</p>
+                    <div class="hero-button">
+                        <span class="btn btn-primary">Learn More</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-half hope-half" onclick="window.location.href='#berean-church'" role="button" tabindex="0" aria-label="Learn more about Berean Bible Fellowship">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Berean Bible Fellowship</h1>
+                    <p class="hero-subtitle">"Building Hope, Sharing Faith"</p>
+                    <div class="hero-button">
+                        <span class="btn btn-secondary">Learn More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bethel Bible Church Section -->
+    <section id="bethel-church" class="church-section grace-section">
+        <div class="church-container">
+            <div class="church-header">
+                <div class="church-badge">Bethel Bible</div>
+                <h2 class="church-title">Bethel Bible Church</h2>
+                <p class="church-tagline">"A Place of Worship and Fellowship"</p>
+            </div>
+
+            <div class="church-content">
+                <div class="church-gallery">
+                    <div class="main-image">
+                        <img src="img/dan/outside.png" alt="Bethel Bible Church - Exterior View">
+                        <div class="image-caption">Beautiful exterior of Bethel Bible Church</div>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="img/dan/inside.png" alt="Bethel Bible Church - Interior Sanctuary">
+                            <div class="image-caption">Sacred interior sanctuary for worship</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="img/dan/pastor.png" alt="Pastor of Bethel Bible Church">
+                            <div class="image-caption">Our dedicated pastor leading the congregation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="church-info">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> About Us</h3>
+                        <p>Bethel Bible Church is a welcoming congregation dedicated to sharing God's love and grace with everyone. We believe in creating a community where people from all walks of life can experience the transformative power of faith and fellowship.</p>
+                        <p>Our mission is to love God, love people, and serve our community with compassion and excellence. Our beautiful sanctuary provides a sacred space for worship, prayer, and spiritual growth.</p>
+                        <div class="pastor-highlight">
+                            <h4><i class="fas fa-user-tie"></i> Meet Our Pastor</h4>
+                            <p>Our dedicated pastor leads our congregation with wisdom, compassion, and a deep commitment to spreading God's word. Under their guidance, our church family continues to grow in faith and service to the community.</p>
+                        </div>
+                        <div class="youtube-link">
+                            <a href="https://www.youtube.com/@BethelChurchKurnool" target="_blank" class="btn btn-outline btn-small">
+                                <i class="fab fa-youtube"></i> Watch Our Services
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-clock"></i> Service Times</h3>
+                        <div class="service-schedule">
+                            <div class="service-item">
+                                <span class="service-day">Sunday Morning</span>
+                                <span class="service-time">10:00 AM</span>
+                            </div>
+                            <div class="service-item">
+                                <span class="service-day">Sunday Evening</span>
+                                <span class="service-time">6:00 PM</span>
+                            </div>
+                            <div class="service-item">
+                                <span class="service-day">Wednesday Prayer</span>
+                                <span class="service-time">7:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                        <p>Bethel Bible Church<br>Main Campus</p>
+                        <div class="contact-buttons">
+                            <a href="https://www.google.com/maps/search/?api=1&query=BETHEL+BIBLE+CHURCH" target="_blank" class="btn btn-small"><i class="fas fa-directions"></i> Get Directions</a>
+                            <a href="#contact" class="btn btn-small btn-outline">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="church-features">
+                <div class="feature-card">
+                    <i class="fas fa-bible"></i>
+                    <h4>Bible Teaching</h4>
+                    <p>Experience the warmth of genuine fellowship and caring relationships.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-music"></i>
+                    <h4>Worship & Music</h4>
+                    <p>Engage in uplifting worship with contemporary and traditional music.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-praying-hands"></i>
+                    <h4>Prayer Ministry</h4>
+                    <p>Make a difference in our community through service and outreach.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Community Outreach</h4>
+                    <p>Grow in faith through small group Bible studies and fellowship.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berean Bible Fellowship Section -->
+    <section id="berean-church" class="church-section hope-section">
+        <div class="church-container">
+            <div class="church-header">
+                <div class="church-badge hope-badge">Berean Fellowship</div>
+                <h2 class="church-title">Berean Bible Fellowship</h2>
+                <p class="church-tagline">"Building Hope, Sharing Faith, Changing Lives"</p>
+            </div>
+
+            <div class="church-content">
+                <div class="church-gallery">
+                    <div class="main-image">
+                        <img src="img/dan_u/outside.png" alt="Berean Bible Fellowship - Exterior View">
+                        <div class="image-caption">Welcoming exterior of Berean Bible Fellowship</div>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="img/dan_u/inside.png" alt="Berean Bible Fellowship - Interior Sanctuary">
+                            <div class="image-caption">Peaceful interior sanctuary for fellowship</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="church-info">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> About Us</h3>
+                        <p>Berean Bible Fellowship is a vibrant community of believers committed to sharing the hope and love of Jesus Christ. We focus on family values, personal growth, and making disciples who make a difference in the world.</p>
+                        <p>Our vision is to be a church that brings hope to the hopeless and demonstrates God's love through practical actions. Our welcoming sanctuary serves as a place of refuge, worship, and spiritual nourishment for all who enter.</p>
+                        <div class="fellowship-highlight">
+                            <h4><i class="fas fa-heart"></i> Our Fellowship</h4>
+                            <p>At Berean Bible Fellowship, we believe in the power of community. Our warm and inviting interior creates an atmosphere where families can grow together in faith, children can learn about God's love, and individuals can find their spiritual home.</p>
+                        </div>
+                        <div class="youtube-link">
+                            <a href="https://www.youtube.com/@bereanbiblefellowshipkurnool" target="_blank" class="btn btn-outline btn-small">
+                                <i class="fab fa-youtube"></i> Watch Our Services
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-clock"></i> Service Times</h3>
+                        <div class="service-schedule">
+                            <div class="service-item">
+                                <span class="service-day">Sunday Morning</span>
+                                <span class="service-time">8:30 AM & 10:30 AM</span>
+                            </div>
+                            <div class="service-item">
+                                <span class="service-day">Tuesday Prayer</span>
+                                <span class="service-time">7:00 PM</span>
+                            </div>
+                            <div class="service-item">
+                                <span class="service-day">Friday Youth</span>
+                                <span class="service-time">7:30 PM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                        <p>456 Hope Avenue<br>Riverside, RV 67890</p>
+                        <div class="contact-buttons">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Berean+Bible+Fellowship" target="_blank" class="btn btn-small"><i class="fas fa-directions"></i> Get Directions</a>
+                            <a href="#contact" class="btn btn-small btn-outline">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="church-features">
+                <div class="feature-card">
+                    <i class="fas fa-home"></i>
+                    <h4>Family Focus</h4>
+                    <p>Programs and ministries designed to strengthen family bonds.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-praying-hands"></i>
+                    <h4>Faith Formation</h4>
+                    <p>Comprehensive Bible teaching for all ages and stages of faith.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Community Impact</h4>
+                    <p>Active involvement in local community service and outreach.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Care Ministry</h4>
+                    <p>Supporting members through life's challenges with love and care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2 class="section-title">Find Our Churches</h2>
+            <p class="section-subtitle">Visit our community churches and join our fellowship</p>
+
+            <div class="contact-content">
+                <div class="contact-map">
+                    <div class="map-container">
+                        <div class="map-display" id="mapDisplay">
+                            <iframe id="mainMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.0167154774504!2d78.03022777659008!3d15.803072607440534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb5dde9c1a942d1%3A0x8bb4079f12e0ea5f!2sBerean%20Bible%20Fellowship!5e0!3m2!1sen!2sin!4v1757097071600!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="map-overlay">
+                            <p class="map-instruction">Hover over a church below to see its location</p>
+                        </div>
+                    </div>
+                    <div class="map-links">
+                        <a href="https://www.google.com/maps/search/?api=1&query=BETHEL+BIBLE+CHURCH" target="_blank" class="btn btn-outline btn-small">
+                            <i class="fas fa-directions"></i> Get Directions to Bethel Bible Church
+                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Berean+Bible+Fellowship" target="_blank" class="btn btn-outline btn-small">
+                            <i class="fas fa-directions"></i> Get Directions to Berean Bible Fellowship
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-card" data-church="bethel" onmouseenter="showChurchMap('bethel')" onmouseleave="showDefaultMap()">
+                        <h3><i class="fas fa-church"></i> Bethel Bible Church</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Main Campus, Kurnool</p>
+                        <p><i class="fas fa-clock"></i> Sunday: 10:00 AM & 6:00 PM</p>
+                        <p><i class="fas fa-phone"></i> Contact for details</p>
+                        <p><i class="fas fa-envelope"></i> Contact for details</p>
+                        <div class="youtube-link">
+                            <a href="https://www.youtube.com/@BethelChurchKurnool" target="_blank" class="btn btn-outline btn-small">
+                                <i class="fab fa-youtube"></i> YouTube Channel
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-card" data-church="berean" onmouseenter="showChurchMap('berean')" onmouseleave="showDefaultMap()">
+                        <h3><i class="fas fa-church"></i> Berean Bible Fellowship</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Kurnool, Andhra Pradesh</p>
+                        <p><i class="fas fa-clock"></i> Sunday: 8:30 AM & 10:30 AM</p>
+                        <p><i class="fas fa-phone"></i> Contact for details</p>
+                        <p><i class="fas fa-envelope"></i> Contact for details</p>
+                        <div class="youtube-link">
+                            <a href="https://www.youtube.com/@bereanbiblefellowshipkurnool" target="_blank" class="btn btn-outline btn-small">
+                                <i class="fab fa-youtube"></i> YouTube Channel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-church"></i>
+                    <span>Community Churches</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#bethel-church">Bethel Bible Church</a>
+                    <a href="#berean-church">Berean Bible Fellowship</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Community Churches. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
