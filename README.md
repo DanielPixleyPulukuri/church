@@ -140,3 +140,4 @@ Feel free to use this template for your church or community organization. Custom
 **Built with ❤️ for communities of faith**
 
 *For questions or customizations, feel free to modify the code to suit your specific needs.*
+# church
