@@ -372,9 +372,457 @@ function init() {
     // Initialize split-screen hero
     initSplitHero();
 
+    // Initialize PDF viewer
+    initPDFViewer();
+
     // Add any additional initialization code here
     // For example, load external data, initialize maps, etc.
 }
+
+// PDF Viewer Functionality
+let currentZoom = 100;
+
+function hideLoading() {
+    const loading = document.querySelector('.pdf-loading');
+    const content = document.getElementById('pdfContent');
+    
+    if (loading && content) {
+        loading.style.display = 'none';
+        content.style.display = 'block';
+    }
+}
+
+function zoomIn() {
+    currentZoom = Math.min(currentZoom + 25, 200);
+    updateZoom();
+    showNotification('Zoomed in to ' + currentZoom + '%', 'success');
+}
+
+function zoomOut() {
+    currentZoom = Math.max(currentZoom - 25, 50);
+    updateZoom();
+    showNotification('Zoomed out to ' + currentZoom + '%', 'success');
+}
+
+function resetZoom() {
+    currentZoom = 100;
+    updateZoom();
+    showNotification('Zoom reset to 100%', 'success');
+}
+
+// Fullscreen functionality
+let isFullscreen = false;
+
+function toggleFullscreen() {
+    const pdfViewer = document.getElementById('pdfViewer');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fullscreenExit = document.querySelector('.fullscreen-exit');
+    
+    if (!isFullscreen) {
+        enterFullscreen(pdfViewer, fullscreenBtn, fullscreenExit);
+    } else {
+        exitFullscreen(pdfViewer, fullscreenBtn, fullscreenExit);
+    }
+}
+
+function enterFullscreen(pdfViewer, fullscreenBtn, fullscreenExit) {
+    // Add fullscreen class
+    pdfViewer.classList.add('fullscreen');
+    
+    // Update button text and icon
+    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
+    
+    // Create and show exit button
+    if (!fullscreenExit) {
+        const exitBtn = document.createElement('button');
+        exitBtn.className = 'fullscreen-exit';
+        exitBtn.innerHTML = '<i class="fas fa-times"></i>';
+        exitBtn.onclick = () => exitFullscreen(pdfViewer, fullscreenBtn, exitBtn);
+        document.body.appendChild(exitBtn);
+    } else {
+        fullscreenExit.classList.remove('hidden');
+    }
+    
+    // Hide body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Update state
+    isFullscreen = true;
+    
+    // Show notification
+    showNotification('Entered fullscreen mode', 'success');
+    
+    // Recalculate zoom for fullscreen
+    setTimeout(() => {
+        updateZoom();
+    }, 100);
+}
+
+function exitFullscreen(pdfViewer, fullscreenBtn, fullscreenExit) {
+    // Remove fullscreen class
+    pdfViewer.classList.remove('fullscreen');
+    
+    // Update button text and icon
+    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
+    
+    // Hide exit button
+    if (fullscreenExit) {
+        fullscreenExit.classList.add('hidden');
+    }
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+    
+    // Update state
+    isFullscreen = false;
+    
+    // Show notification
+    showNotification('Exited fullscreen mode', 'info');
+    
+    // Recalculate zoom for normal view
+    setTimeout(() => {
+        updateZoom();
+    }, 100);
+}
+
+// Handle ESC key to exit fullscreen
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isFullscreen) {
+        const pdfViewer = document.getElementById('pdfViewer');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const fullscreenExit = document.querySelector('.fullscreen-exit');
+        exitFullscreen(pdfViewer, fullscreenBtn, fullscreenExit);
+    }
+});
+
+// Handle fullscreen API for better browser support
+function requestFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+
+function exitFullscreenAPI() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+function updateZoom() {
+    const iframe = document.getElementById('pdfFrame');
+    if (iframe) {
+        iframe.style.transform = `scale(${currentZoom / 100})`;
+        iframe.style.transformOrigin = 'top left';
+        
+        // Adjust container height based on zoom
+        const container = document.querySelector('.pdf-content');
+        if (container) {
+            const baseHeight = window.innerWidth <= 768 ? 400 : 600;
+            container.style.height = `${baseHeight * (currentZoom / 100)}px`;
+        }
+    }
+}
+
+// Prevent PDF downloads and right-click
+function preventPDFDownload() {
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.closest('.pdf-viewer')) {
+            e.preventDefault();
+            showNotification('Right-click is disabled for prayer lyrics', 'info');
+            return false;
+        }
+    });
+
+    // Disable text selection in PDF viewer
+    document.addEventListener('selectstart', function(e) {
+        if (e.target.closest('.pdf-viewer')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable drag and drop
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.closest('.pdf-viewer')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable keyboard shortcuts for saving/printing
+    document.addEventListener('keydown', function(e) {
+        if (e.target.closest('.pdf-viewer') || 
+            (e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'a'))) {
+            e.preventDefault();
+            showNotification('Download and print functions are disabled for prayer lyrics', 'info');
+            return false;
+        }
+    });
+
+    // Disable F12 and other developer tools shortcuts
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'J')) {
+            e.preventDefault();
+            showNotification('Developer tools are disabled for security', 'info');
+            return false;
+        }
+    });
+}
+
+// PDF Viewer initialization
+function initPDFViewer() {
+    console.log('PDF Viewer initialized');
+    
+    // Prevent downloads and unauthorized access
+    preventPDFDownload();
+    
+    // Add mobile-specific enhancements
+    initMobilePDFFeatures();
+    
+    // Fix iframe scrolling
+    fixIframeScrolling();
+    
+    // Add loading timeout
+    setTimeout(() => {
+        const loading = document.querySelector('.pdf-loading');
+        const content = document.getElementById('pdfContent');
+        
+        if (loading && content && content.style.display === 'none') {
+            hideLoading();
+            showNotification('Prayer lyrics loaded successfully', 'success');
+        }
+    }, 3000);
+
+    // Add scroll animations to PDF section
+    const pdfSection = document.querySelector('.prayer-section');
+    if (pdfSection) {
+        observer.observe(pdfSection);
+    }
+}
+
+// Fix iframe scrolling to prevent double scrollbars
+function fixIframeScrolling() {
+    const iframe = document.getElementById('pdfFrame');
+    if (iframe) {
+        // Wait for iframe to load
+        iframe.onload = function() {
+            try {
+                // Try to access iframe content and disable scrolling
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                if (iframeDoc) {
+                    iframeDoc.body.style.overflow = 'hidden';
+                    iframeDoc.documentElement.style.overflow = 'hidden';
+                }
+            } catch (e) {
+                // Cross-origin restrictions - this is normal for PDFs
+                console.log('Cross-origin iframe - using CSS overflow control');
+            }
+        };
+        
+        // Set iframe attributes to control scrolling
+        iframe.setAttribute('scrolling', 'no');
+        iframe.style.overflow = 'hidden';
+    }
+}
+
+// Mobile-specific PDF features
+function initMobilePDFFeatures() {
+    // Add touch-friendly interactions
+    const pdfButtons = document.querySelectorAll('.pdf-actions .btn');
+    
+    pdfButtons.forEach(button => {
+        // Add touch feedback
+        button.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+            this.style.transition = 'transform 0.1s ease';
+        });
+        
+        button.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+            this.style.transition = 'transform 0.2s ease';
+        });
+        
+        // Prevent double-tap zoom on buttons
+        button.addEventListener('touchend', function(e) {
+            e.preventDefault();
+        });
+    });
+
+    // Handle mobile orientation changes
+    window.addEventListener('orientationchange', function() {
+        setTimeout(() => {
+            // Recalculate zoom for mobile orientation
+            if (window.innerWidth <= 768) {
+                updateZoom();
+            }
+        }, 500);
+    });
+
+    // Add mobile-specific zoom controls
+    if (window.innerWidth <= 768) {
+        addMobileZoomControls();
+    }
+}
+
+// Add mobile-specific zoom controls
+function addMobileZoomControls() {
+    const pdfViewer = document.querySelector('.pdf-viewer');
+    if (!pdfViewer) return;
+
+    // Add pinch-to-zoom support for mobile
+    let initialDistance = 0;
+    let initialZoom = currentZoom;
+
+    pdfViewer.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            initialDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            initialZoom = currentZoom;
+        }
+    });
+
+    pdfViewer.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            const currentDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            
+            const scale = currentDistance / initialDistance;
+            const newZoom = Math.round(initialZoom * scale);
+            
+            if (newZoom >= 50 && newZoom <= 200 && newZoom !== currentZoom) {
+                currentZoom = newZoom;
+                updateZoom();
+            }
+        }
+    });
+
+    // Add double-tap to zoom
+    let lastTap = 0;
+    pdfViewer.addEventListener('touchend', function(e) {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        
+        if (tapLength < 500 && tapLength > 0) {
+            e.preventDefault();
+            if (currentZoom === 100) {
+                currentZoom = 150;
+            } else {
+                currentZoom = 100;
+            }
+            updateZoom();
+            showNotification(`Zoom: ${currentZoom}%`, 'info');
+        }
+        lastTap = currentTime;
+    });
+
+    // Add triple-tap to toggle fullscreen on mobile
+    let tapCount = 0;
+    let tapTimer = null;
+    
+    pdfViewer.addEventListener('touchend', function(e) {
+        tapCount++;
+        
+        if (tapCount === 1) {
+            tapTimer = setTimeout(() => {
+                tapCount = 0;
+            }, 500);
+        } else if (tapCount === 3) {
+            clearTimeout(tapTimer);
+            tapCount = 0;
+            e.preventDefault();
+            toggleFullscreen();
+        }
+    });
+}
+
+// Enhanced notification for PDF viewer
+function showPDFNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type} pdf-notification`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#007bff'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        z-index: 1001;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        max-width: 350px;
+        backdrop-filter: blur(10px);
+    `;
+
+    // Add notification content styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .notification-content i {
+            font-size: 1.2rem;
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.body.appendChild(notification);
+
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Animate out and remove
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Override the original showNotification for PDF section
+const originalShowNotification = showNotification;
+showNotification = function(message, type = 'info') {
+    if (document.querySelector('.prayer-section:hover') || 
+        document.activeElement?.closest('.prayer-section')) {
+        showPDFNotification(message, type);
+    } else {
+        originalShowNotification(message, type);
+    }
+};
 
 // Run initialization
 init();
